@@ -1,0 +1,19 @@
+<mujoco model="world">
+  <default>
+    <default class="/"/>
+    <default class="sphere_0/"/>
+    <default class="sphere_1/"/>
+  </default>
+  <asset>
+    <material name="sphere_0/obstacle" class="sphere_0/" rgba="0.59999999999999998 0.29999999999999999 0.29999999999999999 1"/>
+    <material name="sphere_1/obstacle" class="sphere_1/" rgba="0.59999999999999998 0.29999999999999999 0.29999999999999999 1"/>
+  </asset>
+  <worldbody>
+    <body name="sphere_0/">
+      <geom name="sphere_0/obstacle" class="sphere_0/" type="sphere" size="0.10000000000000001" material="sphere_0/obstacle" pos="0.029999999329447746 0.039999999105930328 0.10000000149011612"/>
+    </body>
+    <body name="sphere_1/">
+      <geom name="sphere_1/obstacle" class="sphere_1/" type="sphere" size="0.10000000000000001" material="sphere_1/obstacle" pos="0.019999999552965164 -0.039999999105930328 0.10000000149011612"/>
+    </body>
+  </worldbody>
+</mujoco>

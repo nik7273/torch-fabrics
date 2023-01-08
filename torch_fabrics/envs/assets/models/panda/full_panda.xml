@@ -1,0 +1,178 @@
+<?xml version="1.0" ?>
+<mujoco model="mujoco_panda_model">
+
+    <asset>
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2"
+                width="512" height="512"/>
+        <material name="MatGnd" reflectance="0.5" texture="texplane" texrepeat="1 1" texuniform="true"/>
+
+        <mesh name="link0_collision" file="meshes/collision/link0.stl"/>
+        <mesh name="link1_collision" file="meshes/collision/link1.stl"/>
+        <mesh name="link2_collision" file="meshes/collision/link2.stl"/>
+        <mesh name="link3_collision" file="meshes/collision/link3.stl"/>
+        <mesh name="link4_collision" file="meshes/collision/link4.stl"/>
+        <mesh name="link5_collision" file="meshes/collision/link5.stl"/>
+        <mesh name="link6_collision" file="meshes/collision/link6.stl"/>
+        <mesh name="link7_collision" file="meshes/collision/link7.stl"/>
+        <mesh name="hand_collision" file="meshes/collision/hand.stl"/>
+        <mesh name="finger_collision" file="meshes/collision/finger.stl" scale='1.75 1.0 1.75'/>
+        <mesh name="link0_visual" file="meshes/visual/link0.stl"/>
+        <mesh name="link1_visual" file="meshes/visual/link1.stl"/>
+        <mesh name="link2_visual" file="meshes/visual/link2.stl"/>
+        <mesh name="link3_visual" file="meshes/visual/link3.stl"/>
+        <mesh name="link4_visual" file="meshes/visual/link4.stl"/>
+        <mesh name="link5_visual" file="meshes/visual/link5.stl"/>
+        <mesh name="link6_visual" file="meshes/visual/link6.stl"/>
+        <mesh name="link7_visual" file="meshes/visual/link7.stl"/>
+        <mesh name="hand_visual" file="meshes/visual/hand.stl"/>
+        <mesh name="finger_visual" file="meshes/collision/finger.stl" scale='1.75 1.0 1.75'/>
+
+	<material name="sphere_0/obstacle" class="sphere_0/" rgba="0.59999999999999998 0.29999999999999999 0.29999999999999999 1"/>
+	<material name="sphere_1/obstacle" class="sphere_1/" rgba="0.0 1.0 0.0 1"/>
+    </asset>
+
+    <compiler angle="radian" meshdir=""/>
+    <!-- <compiler meshdir=""/> -->
+
+    <default>
+        <default class="panda">
+            
+            <joint pos="0 0 0" axis="0 0 1" limited="true" damping="100"/>
+            <position forcelimited="true" ctrllimited="true" user="1002 40 2001 -0.005 0.005"/>
+            <default class="visual">
+                <geom contype="0" conaffinity="0" group="0" type="mesh" rgba=".95 .99 .92 1" mass="0"/>
+            </default>
+
+            <default class="collision">
+                <geom contype="1" conaffinity="1" group="3" type="mesh" rgba=".5 .6 .7 1"/>
+            </default>
+             <default class="panda_finger">
+                <joint damping="100" armature='5'/>
+            </default>
+        </default>
+	<default class="sphere_0/"/>
+	<default class="sphere_1/"/>
+    </default>
+
+    <option cone="elliptic">
+        <flag gravity="disable"/>
+    </option>
+
+    <worldbody>
+        <body>
+            <light pos="0 0 1000" castshadow="false"/>
+            <!-- <light diffuse=".5 .5 .5" pos="0 0 3" dir="0 0 -1"/> -->
+            <geom name="ground" pos="0 0 0" size="5 5 10" material="MatGnd" type="plane" contype="1" conaffinity="1"/>
+        </body>
+
+        <body name="panda_link0" childclass="panda" >
+            <inertial pos="0 0 0" quat="1 0 0 0" mass="3.06" diaginertia="0.3 0.3 0.3" />
+            <geom class="visual" mesh="link0_visual"/>
+            <!-- <geom class="collision" mesh="link0_collision"/> -->
+
+            <body name="panda_link1" pos="0 0 0.333">
+                <inertial pos="3.875e-03 2.081e-03 -0.1750" mass="4.970684" fullinertia="7.0337e-01 7.0661e-01 9.1170e-03 -1.3900e-04 6.7720e-03 1.9169e-02" />
+                <joint name="panda_joint1" range="-2.8973 2.8973" frictionloss="5"/>
+                <geom class="visual" mesh="link1_visual"/>
+                <geom class="collision" mesh="link1_collision"/>
+
+                <body name="panda_link2" pos="0 0 0" quat="0.707107 -0.707107 0 0">
+                    <inertial pos="-3.141e-03 -2.872e-02 3.495e-03" mass="0.646926" fullinertia="7.9620e-03 2.8110e-02 2.5995e-02 -3.9250e-03 1.0254e-02 7.0400e-04" />
+                    <joint name="panda_joint2" range="-1.7628 1.7628" frictionloss="2"/>
+                    <geom class="visual" mesh="link2_visual"/>
+                    <geom class="collision" mesh="link2_collision"/>
+
+                    <body name="panda_link3" pos="0 -0.316 0" quat="0.707107 0.707107 0 0">
+                        <inertial pos="2.7518e-02 3.9252e-02 -6.6502e-02" mass="3.228604" fullinertia="3.7242e-02 3.6155e-02 1.0830e-02 -4.7610e-03 -1.1396e-02 -1.2805e-02" />
+                        <joint name="panda_joint3" range="-2.8973 2.8973" frictionloss="2"/>
+                        <geom class="visual" mesh="link3_visual"/>
+                        <geom class="collision" mesh="link3_collision"/>
+
+                        <body name="panda_link4" pos="0.0825 0 0" quat="0.707107 0.707107 0 0">
+                            <inertial pos="-5.317e-02 1.04419e-01 2.7454e-02" mass="3.587895" fullinertia="2.5853e-02 1.9552e-02 2.8323e-02 7.7960e-03 -1.3320e-03 8.6410e-03" />
+                            <joint name="panda_joint4" range="-3.0718 -0.4" frictionloss="0.5"/>
+                            <geom class="visual" mesh="link4_visual"/>
+                            <geom class="collision" mesh="link4_collision"/>
+
+                            <body name="panda_link5" pos="-0.0825 0.384 0" quat="0.707107 -0.707107 0 0">
+                                <inertial pos="-1.1953e-02 4.1065e-02 -3.8437e-02" mass="1.225946" fullinertia="3.5549e-02 2.9474e-02 8.6270e-03 -2.1170e-03 -4.0370e-03 2.2900e-04" />
+                                <joint name="panda_joint5" range="-2.8973 2.8973" frictionloss="1"/>
+                                <geom class="visual" mesh="link5_visual"/>
+                                <geom class="collision" mesh="link5_collision"/>
+
+                                <body name="panda_link6" pos="0 0 0" quat="0.707107 0.707107 0 0">
+                                    <inertial pos="6.0149e-02 -1.4117e-02 -1.0517e-02" mass="1.666555" fullinertia="1.9640e-03 4.3540e-03 5.4330e-03 1.0900e-04 -1.1580e-03 3.4100e-04" />
+                                    <joint name="panda_joint6" range="-1.6573 2.1127" frictionloss="0.5"/>
+                                    <geom class="visual" mesh="link6_visual"/>
+                                    <geom class="collision" mesh="link6_collision"/>
+
+                                    <body name="panda_link7" pos="0.088 0 0" euler='1.57 0 0.'>
+                                        <inertial pos="1.0517e-02 -4.252e-03 6.1597e-02" mass="7.35522e-01" fullinertia="1.2516e-02 1.0027e-02 4.8150e-03 -4.2800e-04 -1.1960e-03 -7.4100e-04" />
+                                        <joint name="panda_joint7" range="-2.8973 2.8973" frictionloss="0.5"/>
+                                        <geom class="visual" mesh="link7_visual"/>
+                                        <geom class="collision" mesh="link7_collision"/>
+
+                                        <site name='ee_site' pos='0 0 0.107' size="0.005 0.005 0.005" euler='0 0 -1.57'/>
+                                        <include file="panda/gripper.xml"/>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+	<body name="sphere_0/">
+	  <geom name="sphere_0/obstacle" class="sphere_0/" type="sphere" size="0.05" material="sphere_0/obstacle" pos="0.0 -0.4 0.3"/>
+	</body>
+	<body name="sphere_1/">
+	  <geom name="sphere_1/obstacle" class="sphere_1/" type="sphere" size="0.01" material="sphere_1/obstacle" pos="-0.3 0.4 0.01"/>
+	</body>
+	<body name="sphere_2/"> -->
+	  <geom name="sphere_2/obstacle" class="sphere_0/" type="sphere" size="0.05" material="sphere_0/obstacle" pos="-0.5 -0.4 0.3"/>
+	</body>
+	<!-- <body name="sphere_1/"> -->
+	<!--   <geom name="sphere_1/obstacle" class="sphere_1/" type="sphere" size="0.080000000000000001" material="sphere_1/obstacle" pos="-0.4 0.1 0.30000000149011612"/> -->
+	<!-- </body> -->
+    </worldbody>
+
+    <actuator>
+        <!-- <position name="arm_pos_actuator_1" joint="panda_joint1" class="panda" forcerange="-87 87" ctrlrange="-2.8973 2.8973" kp="1"/>
+        <velocity name="arm_vel_actuator_1" joint="panda_joint1" class="panda" forcerange="-87 87" ctrlrange="-2.1750 2.1750" kv="1"/>
+        <position name="arm_pos_actuator_2" joint="panda_joint2" class="panda" forcerange="-87 87" ctrlrange="-1.7628 1.7628" kp="1"/>
+        <velocity name="arm_vel_actuator_2" joint="panda_joint2" class="panda" forcerange="-87 87" ctrlrange="-2.1750 2.1750" kv="1"/>
+        <position name="arm_pos_actuator_3" joint="panda_joint3" class="panda" forcerange="-87 87" ctrlrange="-2.8973 2.8973" kp="1"/>
+        <velocity name="arm_vel_actuator_3" joint="panda_joint3" class="panda" forcerange="-87 87" ctrlrange="-2.1750 2.1750" kv="1"/>
+        <position name="arm_pos_actuator_4" joint="panda_joint4" class="panda" forcerange="-87 87" ctrlrange="-3.0718 -0.0698" kp="1"/>
+        <velocity name="arm_vel_actuator_4" joint="panda_joint4" class="panda" forcerange="-87 87" ctrlrange="-2.1750 2.1750" kv="1"/>
+        <position name="arm_pos_actuator_5" joint="panda_joint5" class="panda" forcerange="-87 87" ctrlrange="-2.8973 2.8973" kp="1"/>
+        <velocity name="arm_vel_actuator_5" joint="panda_joint5" class="panda" forcerange="-87 87" ctrlrange="-2.61 2.61" kv="1"/>
+        <position name="arm_pos_actuator_6" joint="panda_joint6" class="panda" forcerange="-87 87" ctrlrange="-0.0175 3.7525" kp="1"/>
+        <velocity name="arm_vel_actuator_6" joint="panda_joint6" class="panda" forcerange="-87 87" ctrlrange="-2.61 2.61" kv="1"/>
+        <position name="arm_pos_actuator_7" joint="panda_joint7" class="panda" forcerange="-87 87" ctrlrange="-2.8973 2.8973" kp="1"/>
+        <velocity name="arm_vel_actuator_7" joint="panda_joint7" class="panda" forcerange="-87 87" ctrlrange="-2.61 2.61" kv="1"/>
+
+        <position name="gripper_pos_actuator_1" joint="panda_finger_joint1" class="panda_finger" kp="500" forcerange="-70 70" ctrlrange="0 0.04"/>
+        <velocity name="gripper_vel_actuator_1" joint="panda_finger_joint1" class="panda_finger" kv="0.5" forcerange="-70 70" ctrlrange="0 0.04"/>
+        <position name="gripper_pos_actuator_2" joint="panda_finger_joint2" class="panda_finger" kp="500" forcerange="-70 70" ctrlrange="0 0.04"/>
+        <velocity name="gripper_vel_actuator_2" joint="panda_finger_joint2" class="panda_finger" kv="0.5" forcerange="-70 70" ctrlrange="0 0.04"/> -->
+        
+        <motor name="arm_direct_actuator_1" joint="panda_joint1" class="panda" forcerange="-87 87" ctrlrange="-87 87"/> 
+        <motor name="arm_direct_actuator_2" joint="panda_joint2" class="panda" forcerange="-87 87" ctrlrange="-87 87"/> 
+        <motor name="arm_direct_actuator_3" joint="panda_joint3" class="panda" forcerange="-87 87" ctrlrange="-87 87"/> 
+        <motor name="arm_direct_actuator_4" joint="panda_joint4" class="panda" forcerange="-87 87" ctrlrange="-87 87"/> 
+        <motor name="arm_direct_actuator_5" joint="panda_joint5" class="panda" forcerange="-12 12" ctrlrange="-12 12"/> 
+        <motor name="arm_direct_actuator_6" joint="panda_joint6" class="panda" forcerange="-12 12" ctrlrange="-12 12"/> 
+        <motor name="arm_direct_actuator_7" joint="panda_joint7" class="panda" forcerange="-12 12" ctrlrange="-12 12"/>  -->
+        <motor name="gripper_direct_actuator_1" joint="panda_finger_joint1" class="panda_finger" forcerange="-70 70" ctrlrange="-70 70"/>
+        <motor name="gripper_direct_actuator_2" joint="panda_finger_joint2" class="panda_finger" forcerange="-70 70" ctrlrange="-70 70"/>
+        <!-- <position name="gripper_pos_actuator_1" joint="panda_finger_joint1" class="panda_finger" kp="500" forcerange="-70 70" ctrlrange="0 0.04"/>
+        <position name="gripper_pos_actuator_2" joint="panda_finger_joint2" class="panda_finger" kp="500" forcerange="-70 70" ctrlrange="0 0.04"/> -->
+    </actuator>
+
+    <sensor>
+        <force name="ee_force_sensor" site="ee_site"/>
+        <torque name="ee_torque_sensor" site="ee_site"/>
+    </sensor>
+
+</mujoco>

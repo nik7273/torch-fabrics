@@ -1,0 +1,71 @@
+<mujoco model="world">
+  <visual>
+    <quality shadowsize="2048"/>
+    <headlight ambient="0.40000000000000002 0.40000000000000002 0.40000000000000002" diffuse="0.80000000000000004 0.80000000000000004 0.80000000000000004" specular="0.10000000000000001 0.10000000000000001 0.10000000000000001"/>
+    <map znear="0.01"/>
+  </visual>
+  <default>
+    <default class="/"/>
+    <default class="point_mass/">
+      <joint type="hinge" axis="0 0 1" limited="true" range="-0.28999999999999998 0.28999999999999998" damping="1.0"/>
+      <motor ctrllimited="true" ctrlrange="-1 1" gear="0.10000000000000001"/>
+    </default>
+    <default class="sphere_0/"/>
+    <default class="sphere_1/"/>
+    <default class="sphere_2/"/>
+    <default class="sphere_3/"/>
+  </default>
+  <asset>
+    <texture name="skybox" type="skybox" builtin="gradient" rgb1="0.40000000000000002 0.59999999999999998 0.80000000000000004" rgb2="0 0 0" mark="random" markrgb="1 1 1" width="800" height="800"/>
+    <texture name="grid" type="2d" builtin="checker" rgb1="0.10000000000000001 0.20000000000000001 0.29999999999999999" rgb2="0.20000000000000001 0.29999999999999999 0.40000000000000002" mark="edge" markrgb="0.20000000000000001 0.29999999999999999 0.40000000000000002" width="300" height="300"/>
+    <material name="grid" class="/" texrepeat="1 1" texuniform="true" reflectance="0.2"/>
+    <material name="decoration" class="/" rgba="0.29999999999999999 0.5 0.69999999999999996 1"/>
+    <material name="point_mass/self" class="point_mass/" rgba="0.69999999999999996 0.5 0.29999999999999999 0.10000000000000001"/>
+    <material name="sphere_0/obstacle" class="sphere_0/" rgba="0.59999999999999998 0.29999999999999999 0.29999999999999999 1"/>
+    <material name="sphere_1/obstacle" class="sphere_1/" rgba="0.59999999999999998 0.29999999999999999 0.29999999999999999 1"/>
+    <material name="sphere_2/obstacle" class="sphere_2/" rgba="0.59999999999999998 0.29999999999999999 0.29999999999999999 1"/>
+    <material name="sphere_3/obstacle" class="sphere_3/" rgba="0.59999999999999998 0.29999999999999999 0.29999999999999999 1"/>
+  </asset>
+  <worldbody>
+    <light name="//unnamed_light_0" class="/" pos="0 0 1"/>
+    <camera name="fixed" class="/" pos="0 0 0.75" quat="1 0 0 0"/>
+    <geom name="ground" class="/" type="plane" size="0.29999999999999999 0.29999999999999999 0.10000000000000001" material="grid" pos="0 0 0"/>
+    <geom name="wall_x" class="/" type="plane" size="0.02 0.29999999999999999 0.02" material="decoration" pos="-0.29999999999999999 0 0.02" zaxis="1 0 0"/>
+    <geom name="wall_y" class="/" type="plane" size="0.29999999999999999 0.02 0.02" material="decoration" pos="0 -0.29999999999999999 0.02" zaxis="0 1 0"/>
+    <geom name="wall_neg_x" class="/" type="plane" size="0.02 0.29999999999999999 0.02" material="decoration" pos="0.29999999999999999 0 0.02" zaxis="-1 0 0"/>
+    <geom name="wall_neg_y" class="/" type="plane" size="0.29999999999999999 0.02 0.02" material="decoration" pos="0 0.29999999999999999 0.02" zaxis="0 -1 0"/>
+    <body name="point_mass/">
+      <body name="point_mass//unnamed_body_0" pos="0.15000000596046448 0 0.01">
+        <joint name="point_mass/root_x" class="point_mass/" type="slide" pos="0 0 0" axis="1 0 0"/>
+        <joint name="point_mass/root_y" class="point_mass/" type="slide" pos="0 0 0" axis="0 1 0"/>
+        <geom name="point_mass//unnamed_geom_0" class="point_mass/" type="sphere" size="0.01" material="point_mass/self" mass="0.3"/>
+      </body>
+    </body>
+    <body name="sphere_0/">
+      <geom name="sphere_0/obstacle" class="sphere_0/" type="sphere" size="0.05000000074505806" material="sphere_0/obstacle" pos="-0.20000000298023224 0 0.05000000074505806"/>
+    </body>
+    <body name="sphere_1/">
+      <geom name="sphere_1/obstacle" class="sphere_1/" type="sphere" size="0.05000000074505806" material="sphere_1/obstacle" pos="0.25 -0.25 0.05000000074505806"/>
+    </body>
+    <body name="sphere_2/">
+      <geom name="sphere_2/obstacle" class="sphere_2/" type="sphere" size="0.05000000074505806" material="sphere_2/obstacle" pos="-0.20000000298023224 0.30000001192092896 0.05000000074505806"/>
+    </body>
+    <body name="sphere_3/">
+      <geom name="sphere_3/obstacle" class="sphere_3/" type="sphere" size="0.05000000074505806" material="sphere_3/obstacle" pos="0.25 0.25 0.05000000074505806"/>
+    </body>
+  </worldbody>
+  <tendon>
+    <fixed name="point_mass/t1" class="point_mass/">
+      <joint joint="point_mass/root_x" coef="1.0"/>
+      <joint joint="point_mass/root_y" coef="0.0"/>
+    </fixed>
+    <fixed name="point_mass/t2" class="point_mass/">
+      <joint joint="point_mass/root_x" coef="0.0"/>
+      <joint joint="point_mass/root_y" coef="1.0"/>
+    </fixed>
+  </tendon>
+  <actuator>
+    <motor name="point_mass/t1" class="point_mass/" tendon="point_mass/t1"/>
+    <motor name="point_mass/t2" class="point_mass/" tendon="point_mass/t2"/>
+  </actuator>
+</mujoco>
